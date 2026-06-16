@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Para qual país você conseguiria viajar?</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     QUIZ IDIOMA INDEPENDENTE — Tudo escopado dentro de .ii-quiz
+     Não afeta nenhum outro elemento da página
+     ============================================================ */
+  
+  .ii-quiz {
+    --ii-navy: #1e2a78;
+    --ii-red: #d6202a;
+    --ii-yellow: #f4c430;
+    --ii-light-bg: #f8f9fc;
+    --ii-text-dark: #1a1a2e;
+    --ii-text-muted: #6b7280;
+    --ii-border: #e5e7eb;
+    --ii-success: #10b981;
+    --ii-shadow: 0 10px 40px rgba(30, 42, 120, 0.08);
+    
+    font-family: 'Poppins', sans-serif;
+    color: var(--ii-text-dark);
+    line-height: 1.5;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0;
+  }
+  
+  .ii-quiz *,
+  .ii-quiz *::before,
+  .ii-quiz *::after {
+    box-sizing: border-box;
+  }
+  
+  .ii-quiz .ii-container {
+    background: white;
+    border-radius: 24px;
+    box-shadow: var(--ii-shadow);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .ii-quiz .ii-screen {
+    display: none;
+    padding: 40px 32px;
+  }
+  
+  .ii-quiz .ii-screen.ii-active {
+    display: block;
+    animation: iiFadeIn 0.4s ease;
+  }
+  
+  @keyframes iiFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .ii-quiz .ii-intro-emoji {
+    font-size: 64px;
+    text-align: center;
+    margin: 0 0 16px 0;
+    animation: iiBounce 2s ease infinite;
+    line-height: 1;
+  }
+  
+  @keyframes iiBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .ii-quiz .ii-intro-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--ii-navy);
+    text-align: center;
+    line-height: 1.2;
+    margin: 0 0 12px 0;
+  }
+  
+  .ii-quiz .ii-highlight { color: var(--ii-red); }
+  
+  .ii-quiz .ii-intro-subtitle {
+    font-size: 16px;
+    color: var(--ii-text-muted);
+    text-align: center;
+    line-height: 1.5;
+    margin: 0 0 32px 0;
+  }
+  
+  .ii-quiz .ii-intro-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin: 0 0 32px 0;
+    flex-wrap: wrap;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .ii-quiz .ii-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--ii-text-muted);
+    font-weight: 500;
+  }
+  
+  .ii-quiz .ii-meta-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--ii-light-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  
+  .ii-quiz .ii-btn {
+    display: block;
+    width: 100%;
+    padding: 18px 24px;
+    background: var(--ii-red);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+    text-align: center;
+    text-decoration: none;
+    line-height: 1.2;
+  }
+  
+  .ii-quiz .ii-btn:hover {
+    background: #b81b23;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(214, 32, 42, 0.3);
+  }
+  
+  .ii-quiz .ii-btn-secondary {
+    background: white;
+    color: var(--ii-navy);
+    border: 2px solid var(--ii-border);
+    margin-top: 12px;
+  }
+  
+  .ii-quiz .ii-btn-secondary:hover {
+    background: var(--ii-light-bg);
+    border-color: var(--ii-navy);
+    box-shadow: none;
+  }
+  
+  .ii-quiz .ii-progress-wrap { margin: 0 0 32px 0; }
+  
+  .ii-quiz .ii-progress-meta {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ii-text-muted);
+  }
+  
+  .ii-quiz .ii-count { color: var(--ii-navy); }
+  
+  .ii-quiz .ii-progress-bar {
+    height: 6px;
+    background: var(--ii-border);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  
+  .ii-quiz .ii-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ii-navy), var(--ii-red));
+    border-radius: 100px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+  }
+  
+  .ii-quiz .ii-question {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ii-navy);
+    line-height: 1.35;
+    margin: 0 0 8px 0;
+  }
+  
+  .ii-quiz .ii-question-context {
+    font-size: 14px;
+    color: var(--ii-text-muted);
+    margin: 0 0 28px 0;
+    font-style: italic;
+  }
+  
+  .ii-quiz .ii-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .ii-quiz .ii-option {
+    padding: 18px 20px;
+    background: white;
+    border: 2px solid var(--ii-border);
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ii-text-dark);
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    line-height: 1.2;
+  }
+  
+  .ii-quiz .ii-option:hover:not(:disabled) {
+    border-color: var(--ii-navy);
+    background: var(--ii-light-bg);
+    transform: translateX(4px);
+  }
+  
+  .ii-quiz .ii-option.ii-correct {
+    border-color: var(--ii-success);
+    background: #ecfdf5;
+    color: var(--ii-success);
+  }
+  
+  .ii-quiz .ii-option.ii-wrong {
+    border-color: var(--ii-red);
+    background: #fef2f2;
+    color: var(--ii-red);
+  }
+  
+  .ii-quiz .ii-option:disabled { cursor: not-allowed; }
+  
+  .ii-quiz .ii-result-flag {
+    font-size: 96px;
+    text-align: center;
+    margin: 0 0 16px 0;
+    animation: iiFlagWave 1s ease;
+    line-height: 1;
+  }
+  
+  @keyframes iiFlagWave {
+    0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+    60% { transform: scale(1.2) rotate(10deg); }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+  }
+  
+  .ii-quiz .ii-result-eyebrow {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ii-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0 0 8px 0;
+  }
+  
+  .ii-quiz .ii-result-country {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--ii-navy);
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+  }
+  
+  .ii-quiz .ii-result-level {
+    display: block;
+    padding: 6px 14px;
+    background: var(--ii-yellow);
+    color: var(--ii-text-dark);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 700;
+    margin: 0 auto 24px;
+    width: fit-content;
+  }
+  
+  .ii-quiz .ii-result-score {
+    text-align: center;
+    font-size: 14px;
+    color: var(--ii-text-muted);
+    margin: 0 0 24px 0;
+  }
+  
+  .ii-quiz .ii-result-score strong {
+    color: var(--ii-red);
+    font-weight: 700;
+  }
+  
+  .ii-quiz .ii-result-description {
+    background: var(--ii-light-bg);
+    padding: 24px;
+    border-radius: 14px;
+    margin: 0 0 16px 0;
+    border-left: 4px solid var(--ii-navy);
+  }
+  
+  .ii-quiz .ii-result-description p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ii-text-dark);
+    margin: 0 0 12px 0;
+  }
+  
+  .ii-quiz .ii-result-description p:last-child { margin: 0; }
+  
+  .ii-quiz .ii-result-cta-box {
+    background: linear-gradient(135deg, var(--ii-navy), #2d3a8c);
+    color: white;
+    padding: 28px 24px;
+    border-radius: 14px;
+    margin: 0 0 16px 0;
+    text-align: center;
+  }
+  
+  .ii-quiz .ii-cta-eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    opacity: 0.8;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+  }
+  
+  .ii-quiz .ii-result-cta-box h3 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 16px 0;
+    color: white;
+  }
+  
+  .ii-quiz .ii-cta-subtext {
+    font-size: 14px;
+    opacity: 0.9;
+    margin: 0;
+  }
+  
+  .ii-quiz .ii-share-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--ii-text-muted);
+    flex-wrap: wrap;
+  }
+  
+  .ii-quiz .ii-share-btn {
+    background: none;
+    border: 1px solid var(--ii-border);
+    padding: 8px 14px;
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ii-navy);
+    transition: all 0.2s;
+  }
+  
+  .ii-quiz .ii-share-btn:hover {
+    background: var(--ii-navy);
+    color: white;
+    border-color: var(--ii-navy);
+  }
+  
+  @media (max-width: 600px) {
+    .ii-quiz .ii-screen { padding: 28px 20px; }
+    .ii-quiz .ii-intro-title { font-size: 22px; }
+    .ii-quiz .ii-intro-emoji { font-size: 48px; }
+    .ii-quiz .ii-question { font-size: 18px; }
+    .ii-quiz .ii-option { padding: 16px; font-size: 15px; }
+    .ii-quiz .ii-result-flag { font-size: 72px; }
+    .ii-quiz .ii-result-country { font-size: 24px; }
+    .ii-quiz .ii-intro-meta { gap: 16px; }
+  }
+</style>
+</head>
+<body style="background:#f8f9fc;padding:40px;">
+
+<!-- ============================================================
+     COPIE A PARTIR DAQUI (inclusive a <style> acima) PRO ELEMENTOR
+     ============================================================ -->
+
+<div class="ii-quiz">
+  <div class="ii-container">
+
+    <!-- INTRO -->
+    <div id="ii-screen-intro" class="ii-screen ii-active">
+      <div class="ii-intro-emoji">✈️</div>
+      <h2 class="ii-intro-title">Para qual país você conseguiria <span class="ii-highlight">viajar agora</span> com seu inglês?</h2>
+      <p class="ii-intro-subtitle">Faça o teste rápido e descubra onde seu nível atual te levaria — e o que falta pra você chegar onde quer.</p>
+      
+      <div class="ii-intro-meta">
+        <div class="ii-meta-item"><div class="ii-meta-icon">⏱️</div><span>2 minutos</span></div>
+        <div class="ii-meta-item"><div class="ii-meta-icon">📝</div><span>10 perguntas</span></div>
+        <div class="ii-meta-item"><div class="ii-meta-icon">🎯</div><span>Resultado real</span></div>
+      </div>
+      
+      <button class="ii-btn" onclick="iiStartQuiz()">Começar o teste</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="ii-screen-quiz" class="ii-screen">
+      <div class="ii-progress-wrap">
+        <div class="ii-progress-meta">
+          <span>Pergunta <span class="ii-count" id="ii-current-q">1</span> de 10</span>
+          <span id="ii-progress-percent">10%</span>
+        </div>
+        <div class="ii-progress-bar"><div class="ii-progress-fill" id="ii-progress-fill"></div></div>
+      </div>
+      
+      <p class="ii-question-context" id="ii-q-context">Complete a frase:</p>
+      <h3 class="ii-question" id="ii-q-text">Pergunta aqui</h3>
+      
+      <div class="ii-options" id="ii-options-container"></div>
+    </div>
+
+    <!-- RESULTADO -->
+    <div id="ii-screen-result" class="ii-screen">
+      <div class="ii-result-flag" id="ii-result-flag">🌎</div>
+      <p class="ii-result-eyebrow">Seu destino com o inglês atual</p>
+      <h3 class="ii-result-country" id="ii-result-country">País</h3>
+      <span class="ii-result-level" id="ii-result-level">Nível</span>
+      <p class="ii-result-score">Você acertou <strong id="ii-result-score-num">0</strong> de 10 perguntas</p>
+      
+      <div class="ii-result-description" id="ii-result-description"></div>
+      
+      <div class="ii-result-cta-box">
+        <div class="ii-cta-eyebrow">Próximo passo</div>
+        <h3 id="ii-cta-headline">Quer chegar mais longe?</h3>
+        <p class="ii-cta-subtext">Em breve nosso consultor entra em contato pra te mostrar o caminho até lá.</p>
+      </div>
+      
+      <button class="ii-btn ii-btn-secondary" onclick="iiRestart()">Refazer o teste</button>
+      
+      <div class="ii-share-row">
+        <span>Compartilhe seu resultado:</span>
+        <button class="ii-share-btn" onclick="iiShareResult()">📲 Compartilhar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  const INTEGRATION_URL = "";
+  const INTEGRATION_ENABLED = false;
+
+  const questions = [
+    { context: "Complete a frase:", q: "I ___ a student.", options: ["am", "is", "are", "be"], correct: 0 },
+    { context: "Escolha o correto:", q: "She has ___ orange in her bag.", options: ["a", "an", "the", "some"], correct: 1 },
+    { context: "Qual o plural correto?", q: "Look at those ___ playing in the park!", options: ["childs", "children", "childes", "child"], correct: 1 },
+    { context: "Passado simples:", q: "Yesterday I ___ pizza for dinner.", options: ["eat", "eated", "ate", "eaten"], correct: 2 },
+    { context: "Complete corretamente:", q: "I ___ to Paris three times in my life.", options: ["went", "have been", "have gone", "go"], correct: 1 },
+    { context: "Escolha o comparativo certo:", q: "This book is ___ than that one.", options: ["more interesting", "most interesting", "interestinger", "interestingest"], correct: 0 },
+    { context: "Phrasal verb:", q: "Can you ___ the TV? It's too loud!", options: ["turn up", "turn off", "turn down", "turn over"], correct: 2 },
+    { context: "Condicional:", q: "If I ___ you, I would apologize right now.", options: ["am", "was", "were", "be"], correct: 2 },
+    { context: "Discurso indireto:", q: 'She said she ___ tired after the long flight.', options: ["is", "was", "has been", "be"], correct: 1 },
+    { context: "Inversão (nível avançado):", q: "___ had I arrived when the phone started ringing.", options: ["Soon", "Just", "Hardly", "Quick"], correct: 2 }
+  ];
+
+  const results = {
+    "0-2": { flag: "🇧🇷🇵🇹", country: "Brasil ou Portugal (por enquanto)", level: "Iniciante · A1", headline: "Imagine o mundo que vai abrir quando você falar inglês", desc: ["Seu nível atual ainda é de iniciante — e isso é totalmente normal! A maioria dos brasileiros começa exatamente daí.","Por enquanto, viajar pra fora exigiria muito da tradução do Google. Mas a boa notícia? O caminho do zero ao 'me virando bem' é mais curto do que você imagina com o método certo."] },
+    "3-4": { flag: "🇪🇸🇲🇽", country: "Espanha ou México", level: "Básico · A2", headline: "Você já se vira em destinos turísticos", desc: ["Você consegue pedir comida, pegar um táxi e fazer o básico em destinos turísticos onde o inglês não é tão exigido.","Mas se quiser conversar de verdade com alguém, pedir uma informação fora do roteiro ou trabalhar em inglês... ainda tem um caminho. E é exatamente esse caminho que a gente percorre com você."] },
+    "5-6": { flag: "🇺🇸", country: "Estados Unidos", level: "Intermediário · B1", headline: "Você já se comunica — mas dá pra ir muito além", desc: ["Você consegue viajar pros EUA, fazer amigos, pedir o que precisa e conversar sobre temas do dia a dia. Já é um salto enorme em relação à maioria.","Falta agora o pulo pra fluência: aquele momento em que você pensa em inglês, faz piada, debate. É o que separa quem 'fala inglês' de quem 'domina o inglês'."] },
+    "7-8": { flag: "🇬🇧", country: "Reino Unido", level: "Avançado · B2", headline: "Você está perto da fluência. Vamos selar o trato?", desc: ["Você encara um sotaque britânico, entende filmes sem legenda e consegue se virar em ambientes profissionais. Parabéns — a maioria nunca chega aqui.","O que falta agora é o refinamento: vocabulário sofisticado, idioms, fluidez em contextos exigentes. O nível que abre portas em entrevistas, palestras e networking internacional."] },
+    "9-10": { flag: "🌎", country: "Qualquer lugar do mundo", level: "Fluente · C1/C2", headline: "Você está no top 1% dos brasileiros", desc: ["Impressionante. Seu inglês te leva a qualquer lugar do mundo, em qualquer contexto — acadêmico, profissional, social.","Mas talvez seja hora de pensar em um próximo idioma? Espanhol, italiano, francês, alemão... Imagina o que mais você pode destravar."] }
+  };
+
+  function getLeadFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      email: params.get('email') || '',
+      nome: params.get('nome') || params.get('name') || '',
+      telefone: params.get('telefone') || params.get('phone') || ''
+    };
+  }
+
+  function sendResultToCRM(scoreNum, levelKey, country, level) {
+    if (!INTEGRATION_ENABLED || !INTEGRATION_URL) {
+      console.log('Quiz - Dados:', { ...getLeadFromURL(), score: scoreNum, levelKey, country, level });
+      return;
+    }
+    const lead = getLeadFromURL();
+    fetch(INTEGRATION_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: lead.email, nome: lead.nome, telefone: lead.telefone,
+        score: scoreNum, level_key: levelKey, level: level, country: country,
+        timestamp: new Date().toISOString()
+      })
+    }).catch(err => console.error('Erro:', err));
+  }
+
+  let currentQuestion = 0;
+  let score = 0;
+  let answered = false;
+
+  window.iiStartQuiz = function() {
+    document.getElementById('ii-screen-intro').classList.remove('ii-active');
+    document.getElementById('ii-screen-quiz').classList.add('ii-active');
+    loadQuestion();
+  };
+
+  function loadQuestion() {
+    answered = false;
+    const q = questions[currentQuestion];
+    document.getElementById('ii-current-q').textContent = currentQuestion + 1;
+    document.getElementById('ii-q-context').textContent = q.context;
+    document.getElementById('ii-q-text').textContent = q.q;
+    
+    const progress = ((currentQuestion) / questions.length) * 100;
+    document.getElementById('ii-progress-fill').style.width = progress + '%';
+    document.getElementById('ii-progress-percent').textContent = Math.round(progress) + '%';
+    
+    const container = document.getElementById('ii-options-container');
+    container.innerHTML = '';
+    q.options.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'ii-option';
+      btn.textContent = opt;
+      btn.onclick = function() { selectOption(idx, btn); };
+      container.appendChild(btn);
+    });
+  }
+
+  function selectOption(idx, btn) {
+    if (answered) return;
+    answered = true;
+    const q = questions[currentQuestion];
+    const allOptions = document.querySelectorAll('.ii-quiz .ii-option');
+    allOptions.forEach((o, i) => {
+      o.disabled = true;
+      if (i === q.correct) o.classList.add('ii-correct');
+      if (i === idx && idx !== q.correct) o.classList.add('ii-wrong');
+    });
+    if (idx === q.correct) score++;
+    
+    setTimeout(() => {
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    }, 900);
+  }
+
+  function showResult() {
+    document.getElementById('ii-screen-quiz').classList.remove('ii-active');
+    document.getElementById('ii-screen-result').classList.add('ii-active');
+    document.getElementById('ii-progress-fill').style.width = '100%';
+    
+    let key;
+    if (score <= 2) key = "0-2";
+    else if (score <= 4) key = "3-4";
+    else if (score <= 6) key = "5-6";
+    else if (score <= 8) key = "7-8";
+    else key = "9-10";
+    
+    const r = results[key];
+    document.getElementById('ii-result-flag').textContent = r.flag;
+    document.getElementById('ii-result-country').textContent = r.country;
+    document.getElementById('ii-result-level').textContent = r.level;
+    document.getElementById('ii-result-score-num').textContent = score;
+    document.getElementById('ii-cta-headline').textContent = r.headline;
+    
+    const descEl = document.getElementById('ii-result-description');
+    descEl.innerHTML = r.desc.map(p => '<p>' + p + '</p>').join('');
+    
+    sendResultToCRM(score, key, r.country, r.level);
+  }
+
+  window.iiRestart = function() {
+    currentQuestion = 0;
+    score = 0;
+    answered = false;
+    document.getElementById('ii-screen-result').classList.remove('ii-active');
+    document.getElementById('ii-screen-intro').classList.add('ii-active');
+  };
+
+  window.iiShareResult = function() {
+    const country = document.getElementById('ii-result-country').textContent;
+    const text = 'Acabei de fazer o quiz da Idioma Independente e descobri que com meu inglês atual eu conseguiria viajar para: ' + country + ' 🌎';
+    if (navigator.share) {
+      navigator.share({ text: text, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(text);
+      alert('Resultado copiado! Cole onde quiser 😉');
+    }
+  };
+})();
+</script>
+
+<!-- FIM DO CÓDIGO PRA COPIAR -->
+
+</body>
+</html>
