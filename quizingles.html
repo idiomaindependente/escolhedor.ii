@@ -3,17 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz: Para qual país você conseguiria viajar?</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Quiz Level Up! — Qual seu nível de inglês?</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  /* ============================================================
-     QUIZ IDIOMA INDEPENDENTE — Tudo escopado dentro de .ii-quiz
-     Não afeta nenhum outro elemento da página
-     ============================================================ */
-  
   .ii-quiz {
     --ii-navy: #1e2a78;
     --ii-red: #d6202a;
+    --ii-red-dark: #b81b23;
     --ii-yellow: #f4c430;
     --ii-light-bg: #f8f9fc;
     --ii-text-dark: #1a1a2e;
@@ -24,7 +20,7 @@
     
     font-family: 'Poppins', sans-serif;
     color: var(--ii-text-dark);
-    line-height: 1.5;
+    line-height: 1.6;
     box-sizing: border-box;
     width: 100%;
     max-width: 680px;
@@ -32,9 +28,7 @@
     padding: 0;
   }
   
-  .ii-quiz *,
-  .ii-quiz *::before,
-  .ii-quiz *::after {
+  .ii-quiz *, .ii-quiz *::before, .ii-quiz *::after {
     box-sizing: border-box;
   }
   
@@ -46,25 +40,47 @@
     position: relative;
   }
   
-  .ii-quiz .ii-screen {
-    display: none;
-    padding: 40px 32px;
-  }
-  
-  .ii-quiz .ii-screen.ii-active {
-    display: block;
-    animation: iiFadeIn 0.4s ease;
-  }
+  .ii-quiz .ii-screen { display: none; padding: 48px 32px; }
+  .ii-quiz .ii-screen.ii-active { display: block; animation: iiFadeIn 0.4s ease; }
   
   @keyframes iiFadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
   
+  /* CONTADOR */
+  .ii-quiz .ii-counter-badge {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #fff4e6, #ffe9d6);
+    border: 1px solid #fdba74;
+    color: #9a3412;
+    padding: 10px 18px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 auto 24px;
+    width: fit-content;
+    max-width: 100%;
+    text-align: center;
+    animation: iiPulse 2s ease-in-out infinite;
+  }
+  
+  .ii-quiz .ii-counter-badge.ii-counter-visible { display: inline-flex; }
+  .ii-quiz .ii-counter-badge strong { color: var(--ii-red); font-weight: 800; }
+  
+  @keyframes iiPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+  }
+  
+  /* INTRO */
   .ii-quiz .ii-intro-emoji {
     font-size: 64px;
     text-align: center;
-    margin: 0 0 16px 0;
+    margin: 0 0 20px 0;
     animation: iiBounce 2s ease infinite;
     line-height: 1;
   }
@@ -79,8 +95,8 @@
     font-weight: 800;
     color: var(--ii-navy);
     text-align: center;
-    line-height: 1.2;
-    margin: 0 0 12px 0;
+    line-height: 1.25;
+    margin: 0 0 16px 0;
   }
   
   .ii-quiz .ii-highlight { color: var(--ii-red); }
@@ -89,15 +105,15 @@
     font-size: 16px;
     color: var(--ii-text-muted);
     text-align: center;
-    line-height: 1.5;
+    line-height: 1.6;
     margin: 0 0 32px 0;
   }
   
   .ii-quiz .ii-intro-meta {
     display: flex;
     justify-content: center;
-    gap: 24px;
-    margin: 0 0 32px 0;
+    gap: 28px;
+    margin: 0 0 36px 0;
     flex-wrap: wrap;
     padding: 0;
     list-style: none;
@@ -124,6 +140,56 @@
     flex-shrink: 0;
   }
   
+  /* ESCALA LEVEL UP! NA INTRO */
+  .ii-quiz .ii-scale-preview {
+    background: var(--ii-light-bg);
+    border-radius: 16px;
+    padding: 20px 22px;
+    margin: 0 0 32px 0;
+    border-left: 4px solid var(--ii-red);
+  }
+  
+  .ii-quiz .ii-scale-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--ii-navy);
+    margin: 0 0 16px 0;
+  }
+  
+  .ii-quiz .ii-scale-levels {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  
+  .ii-quiz .ii-scale-level {
+    flex: 1;
+    min-width: 80px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--ii-text-muted);
+    line-height: 1.4;
+  }
+  
+  .ii-quiz .ii-scale-icon {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  
+  .ii-quiz .ii-scale-level strong {
+    display: block;
+    color: var(--ii-navy);
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  
+  /* BOTÕES */
   .ii-quiz .ii-btn {
     display: block;
     width: 100%;
@@ -146,7 +212,7 @@
   }
   
   .ii-quiz .ii-btn:hover {
-    background: #b81b23;
+    background: var(--ii-red-dark);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(214, 32, 42, 0.3);
   }
@@ -155,7 +221,10 @@
     background: white;
     color: var(--ii-navy);
     border: 2px solid var(--ii-border);
-    margin-top: 12px;
+    margin-top: 16px;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 600;
   }
   
   .ii-quiz .ii-btn-secondary:hover {
@@ -164,7 +233,8 @@
     box-shadow: none;
   }
   
-  .ii-quiz .ii-progress-wrap { margin: 0 0 32px 0; }
+  /* QUIZ */
+  .ii-quiz .ii-progress-wrap { margin: 0 0 36px 0; }
   
   .ii-quiz .ii-progress-meta {
     display: flex;
@@ -203,7 +273,7 @@
   .ii-quiz .ii-question-context {
     font-size: 14px;
     color: var(--ii-text-muted);
-    margin: 0 0 28px 0;
+    margin: 0 0 32px 0;
     font-style: italic;
   }
   
@@ -254,118 +324,319 @@
   
   .ii-quiz .ii-option:disabled { cursor: not-allowed; }
   
-  .ii-quiz .ii-result-flag {
-    font-size: 96px;
-    text-align: center;
-    margin: 0 0 16px 0;
-    animation: iiFlagWave 1s ease;
-    line-height: 1;
-  }
-  
-  @keyframes iiFlagWave {
-    0% { transform: scale(0) rotate(-30deg); opacity: 0; }
-    60% { transform: scale(1.2) rotate(10deg); }
-    100% { transform: scale(1) rotate(0); opacity: 1; }
-  }
-  
+  /* RESULTADO */
   .ii-quiz .ii-result-eyebrow {
     text-align: center;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 700;
     color: var(--ii-text-muted);
     text-transform: uppercase;
     letter-spacing: 1.5px;
     margin: 0 0 8px 0;
   }
   
-  .ii-quiz .ii-result-country {
-    text-align: center;
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--ii-navy);
-    margin: 0 0 16px 0;
-    line-height: 1.2;
-  }
-  
-  .ii-quiz .ii-result-level {
-    display: block;
-    padding: 6px 14px;
-    background: var(--ii-yellow);
-    color: var(--ii-text-dark);
-    border-radius: 100px;
-    font-size: 13px;
-    font-weight: 700;
-    margin: 0 auto 24px;
-    width: fit-content;
-  }
-  
-  .ii-quiz .ii-result-score {
+  .ii-quiz .ii-result-score-line {
     text-align: center;
     font-size: 14px;
     color: var(--ii-text-muted);
-    margin: 0 0 24px 0;
+    margin: 0 0 28px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
   }
   
-  .ii-quiz .ii-result-score strong {
+  .ii-quiz .ii-result-score-line strong {
     color: var(--ii-red);
     font-weight: 700;
   }
   
-  .ii-quiz .ii-result-description {
-    background: var(--ii-light-bg);
-    padding: 24px;
-    border-radius: 14px;
-    margin: 0 0 16px 0;
-    border-left: 4px solid var(--ii-navy);
+  /* CARD LEVEL UP! */
+  .ii-quiz .ii-level-card {
+    background: var(--ii-red);
+    color: white;
+    border-radius: 20px;
+    padding: 32px 28px;
+    margin: 0 0 24px 0;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(214, 32, 42, 0.25);
+    animation: iiLevelCardIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   
-  .ii-quiz .ii-result-description p {
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--ii-text-dark);
+  @keyframes iiLevelCardIn {
+    0% { transform: scale(0.8) translateY(20px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+  }
+  
+  .ii-quiz .ii-level-emoji {
+    display: block;
+    font-size: 48px;
+    line-height: 1;
     margin: 0 0 12px 0;
   }
   
-  .ii-quiz .ii-result-description p:last-child { margin: 0; }
+  .ii-quiz .ii-level-name {
+    font-size: 36px;
+    font-weight: 900;
+    margin: 0 0 6px 0;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
   
-  .ii-quiz .ii-result-cta-box {
+  .ii-quiz .ii-level-cefr {
+    font-size: 14px;
+    opacity: 0.85;
+    font-weight: 600;
+    margin: 0 0 24px 0;
+    letter-spacing: 0.5px;
+  }
+  
+  .ii-quiz .ii-level-intro {
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0 0 18px 0;
+    text-align: left;
+    font-weight: 500;
+  }
+  
+  .ii-quiz .ii-level-points {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+  }
+  
+  .ii-quiz .ii-level-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .ii-quiz .ii-level-points li::before {
+    content: "✓";
+    font-weight: 900;
+    background: rgba(255, 255, 255, 0.18);
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    margin-top: 1px;
+  }
+  
+  /* PRÓXIMO PASSO */
+  .ii-quiz .ii-next-step {
+    background: var(--ii-light-bg);
+    border-radius: 16px;
+    padding: 24px 26px;
+    margin: 0 0 24px 0;
+    border-left: 4px solid var(--ii-navy);
+  }
+  
+  .ii-quiz .ii-next-step h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ii-navy);
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .ii-quiz .ii-next-step h4 .ii-next-icon {
+    font-size: 18px;
+  }
+  
+  .ii-quiz .ii-next-step p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ii-text-dark);
+    margin: 0;
+  }
+  
+  /* DISCLAIMER */
+  .ii-quiz .ii-disclaimer {
+    background: #fef9e7;
+    border: 1px solid #fde68a;
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 0 0 24px 0;
+    font-size: 13px;
+    color: #78350f;
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .ii-quiz .ii-disclaimer-icon {
+    flex-shrink: 0;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  
+  .ii-quiz .ii-disclaimer strong { color: #78350f; }
+  
+  /* CTA */
+  .ii-quiz .ii-cta-box {
     background: linear-gradient(135deg, var(--ii-navy), #2d3a8c);
     color: white;
-    padding: 28px 24px;
-    border-radius: 14px;
+    padding: 32px 28px;
+    border-radius: 16px;
     margin: 0 0 16px 0;
     text-align: center;
   }
   
-  .ii-quiz .ii-cta-eyebrow {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    opacity: 0.8;
-    margin: 0 0 8px 0;
-    font-weight: 600;
+  .ii-quiz .ii-cta-icon {
+    font-size: 36px;
+    line-height: 1;
+    margin: 0 0 12px 0;
   }
   
-  .ii-quiz .ii-result-cta-box h3 {
-    font-size: 20px;
+  .ii-quiz .ii-cta-eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    opacity: 0.85;
+    margin: 0 0 8px 0;
     font-weight: 700;
+  }
+  
+  .ii-quiz .ii-cta-box h3 {
+    font-size: 22px;
+    font-weight: 800;
     line-height: 1.3;
-    margin: 0 0 16px 0;
+    margin: 0 0 14px 0;
     color: white;
   }
   
   .ii-quiz .ii-cta-subtext {
     font-size: 14px;
-    opacity: 0.9;
+    opacity: 0.92;
     margin: 0;
+    line-height: 1.6;
   }
   
+  /* BOTÃO CURIOSIDADE */
+  .ii-quiz .ii-curiosity-btn {
+    display: block;
+    width: 100%;
+    padding: 16px 20px;
+    background: white;
+    color: var(--ii-navy);
+    border: 2px dashed var(--ii-navy);
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0 0 24px 0;
+    line-height: 1.3;
+  }
+  
+  .ii-quiz .ii-curiosity-btn:hover {
+    background: var(--ii-navy);
+    color: white;
+    border-style: solid;
+  }
+  
+  .ii-quiz .ii-curiosity-btn .ii-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    margin-left: 6px;
+  }
+  
+  .ii-quiz .ii-curiosity-btn.ii-open .ii-arrow {
+    transform: rotate(180deg);
+  }
+  
+  /* MÉTODO 3M */
+  .ii-quiz .ii-method-box {
+    display: none;
+    background: white;
+    border: 2px solid var(--ii-border);
+    border-radius: 16px;
+    padding: 24px;
+    margin: -12px 0 24px 0;
+    animation: iiSlideDown 0.4s ease;
+  }
+  
+  .ii-quiz .ii-method-box.ii-visible { display: block; }
+  
+  @keyframes iiSlideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .ii-quiz .ii-method-box h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ii-navy);
+    margin: 0 0 18px 0;
+  }
+  
+  .ii-quiz .ii-method-3m {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  .ii-quiz .ii-method-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  
+  .ii-quiz .ii-method-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: #fef2f2;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    line-height: 1;
+  }
+  
+  .ii-quiz .ii-method-item-text {
+    flex: 1;
+  }
+  
+  .ii-quiz .ii-method-item-text strong {
+    display: block;
+    font-size: 15px;
+    color: var(--ii-navy);
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+  
+  .ii-quiz .ii-method-item-text span {
+    font-size: 13px;
+    color: var(--ii-text-muted);
+    line-height: 1.6;
+  }
+  
+  /* SHARE */
   .ii-quiz .ii-share-row {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-top: 16px;
+    margin-top: 20px;
     font-size: 13px;
     color: var(--ii-text-muted);
     flex-wrap: wrap;
@@ -391,14 +662,23 @@
   }
   
   @media (max-width: 600px) {
-    .ii-quiz .ii-screen { padding: 28px 20px; }
+    .ii-quiz .ii-screen { padding: 36px 22px; }
     .ii-quiz .ii-intro-title { font-size: 22px; }
     .ii-quiz .ii-intro-emoji { font-size: 48px; }
     .ii-quiz .ii-question { font-size: 18px; }
     .ii-quiz .ii-option { padding: 16px; font-size: 15px; }
-    .ii-quiz .ii-result-flag { font-size: 72px; }
-    .ii-quiz .ii-result-country { font-size: 24px; }
-    .ii-quiz .ii-intro-meta { gap: 16px; }
+    .ii-quiz .ii-level-card { padding: 28px 22px; }
+    .ii-quiz .ii-level-name { font-size: 28px; }
+    .ii-quiz .ii-level-emoji { font-size: 40px; }
+    .ii-quiz .ii-cta-box h3 { font-size: 18px; }
+    .ii-quiz .ii-cta-box { padding: 26px 22px; }
+    .ii-quiz .ii-intro-meta { gap: 18px; }
+    .ii-quiz .ii-counter-badge { font-size: 12px; padding: 8px 14px; }
+    .ii-quiz .ii-scale-level { min-width: 60px; font-size: 10px; }
+    .ii-quiz .ii-scale-level strong { font-size: 11px; }
+    .ii-quiz .ii-scale-icon { font-size: 18px; }
+    .ii-quiz .ii-next-step { padding: 20px 22px; }
+    .ii-quiz .ii-method-icon { width: 42px; height: 42px; font-size: 20px; }
   }
 </style>
 </head>
@@ -414,13 +694,29 @@
     <!-- INTRO -->
     <div id="ii-screen-intro" class="ii-screen ii-active">
       <div class="ii-intro-emoji">✈️</div>
-      <h2 class="ii-intro-title">Para qual país você conseguiria <span class="ii-highlight">viajar agora</span> com seu inglês?</h2>
-      <p class="ii-intro-subtitle">Faça o teste rápido e descubra onde seu nível atual te levaria — e o que falta pra você chegar onde quer.</p>
+      <h2 class="ii-intro-title">Qual é o seu nível de inglês na <span class="ii-highlight">escala Level Up!</span>?</h2>
+      
+      <div class="ii-counter-badge" id="ii-counter-badge">
+        🔥 <strong id="ii-counter-number">0</strong>&nbsp;já descobriram o nível deles
+      </div>
+      
+      <p class="ii-intro-subtitle">Bora descobrir onde você tá hoje. E até onde dá pra chegar. É rapidinho.</p>
+      
+      <div class="ii-scale-preview">
+        <p class="ii-scale-title">Escala Level Up! · CEFR</p>
+        <div class="ii-scale-levels">
+          <div class="ii-scale-level"><span class="ii-scale-icon">🌱</span><strong>Aprendiz</strong>A1</div>
+          <div class="ii-scale-level"><span class="ii-scale-icon">🧭</span><strong>Explorador</strong>A2</div>
+          <div class="ii-scale-level"><span class="ii-scale-icon">🔨</span><strong>Construtor</strong>B1</div>
+          <div class="ii-scale-level"><span class="ii-scale-icon">💬</span><strong>Comunicador</strong>B2</div>
+          <div class="ii-scale-level"><span class="ii-scale-icon">🏆</span><strong>Independente</strong>C1</div>
+        </div>
+      </div>
       
       <div class="ii-intro-meta">
         <div class="ii-meta-item"><div class="ii-meta-icon">⏱️</div><span>2 minutos</span></div>
         <div class="ii-meta-item"><div class="ii-meta-icon">📝</div><span>10 perguntas</span></div>
-        <div class="ii-meta-item"><div class="ii-meta-icon">🎯</div><span>Resultado real</span></div>
+        <div class="ii-meta-item"><div class="ii-meta-icon">🎯</div><span>Resultado na hora</span></div>
       </div>
       
       <button class="ii-btn" onclick="iiStartQuiz()">Começar o teste</button>
@@ -444,18 +740,71 @@
 
     <!-- RESULTADO -->
     <div id="ii-screen-result" class="ii-screen">
-      <div class="ii-result-flag" id="ii-result-flag">🌎</div>
-      <p class="ii-result-eyebrow">Seu destino com o inglês atual</p>
-      <h3 class="ii-result-country" id="ii-result-country">País</h3>
-      <span class="ii-result-level" id="ii-result-level">Nível</span>
-      <p class="ii-result-score">Você acertou <strong id="ii-result-score-num">0</strong> de 10 perguntas</p>
+      <p class="ii-result-eyebrow">Seu nível na escala Level Up!</p>
+      <p class="ii-result-score-line">🎯 Você acertou <strong id="ii-result-score-num">0</strong> de 10 perguntas</p>
       
-      <div class="ii-result-description" id="ii-result-description"></div>
+      <!-- Card vermelho -->
+      <div class="ii-level-card">
+        <div class="ii-level-emoji" id="ii-result-emoji">🌱</div>
+        <div class="ii-level-name" id="ii-result-name">Aprendiz</div>
+        <div class="ii-level-cefr" id="ii-result-cefr">equivalente A1</div>
+        <p class="ii-level-intro" id="ii-result-intro">Intro do nível</p>
+        <ul class="ii-level-points" id="ii-result-points"></ul>
+      </div>
       
-      <div class="ii-result-cta-box">
+      <!-- Próximo passo -->
+      <div class="ii-next-step">
+        <h4><span class="ii-next-icon">📈</span> <span id="ii-next-title">Próximo nível</span></h4>
+        <p id="ii-next-text">Texto motivacional</p>
+      </div>
+      
+      <!-- Disclaimer -->
+      <div class="ii-disclaimer">
+        <div class="ii-disclaimer-icon">⚠️</div>
+        <div>
+          <strong>Esse é só uma estimativa</strong> baseada em múltipla escolha. Pra saber seu nível real, com leitura, escrita, escuta e conversação, você precisa de uma <strong>avaliação humana</strong>, feita pelo nosso professor na aula experimental.
+        </div>
+      </div>
+      
+      <!-- Botão de curiosidade -->
+      <button class="ii-curiosity-btn" id="ii-curiosity-btn" onclick="iiToggleMethod()">
+        🤔 Como funciona a aula experimental? <span class="ii-arrow">▾</span>
+      </button>
+      
+      <!-- Método 3M -->
+      <div class="ii-method-box" id="ii-method-box">
+        <h4>Nosso método 3M na prática:</h4>
+        <div class="ii-method-3m">
+          <div class="ii-method-item">
+            <div class="ii-method-icon">🎓</div>
+            <div class="ii-method-item-text">
+              <strong>Mentoria</strong>
+              <span>Você vê como nosso professor te guia, tira dúvidas e ajusta o ritmo do seu jeito.</span>
+            </div>
+          </div>
+          <div class="ii-method-item">
+            <div class="ii-method-icon">🎯</div>
+            <div class="ii-method-item-text">
+              <strong>Motivação</strong>
+              <span>Você recebe um conteúdo personalizado pro que faz sentido pra você. Sem decoreba genérico.</span>
+            </div>
+          </div>
+          <div class="ii-method-item">
+            <div class="ii-method-icon">🧠</div>
+            <div class="ii-method-item-text">
+              <strong>Memorização</strong>
+              <span>Você descobre nosso sistema de repetição espaçada que faz o vocabulário grudar.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- CTA -->
+      <div class="ii-cta-box">
+        <div class="ii-cta-icon">🚀</div>
         <div class="ii-cta-eyebrow">Próximo passo</div>
-        <h3 id="ii-cta-headline">Quer chegar mais longe?</h3>
-        <p class="ii-cta-subtext">Em breve nosso consultor entra em contato pra te mostrar o caminho até lá.</p>
+        <h3 id="ii-cta-headline">Quer descobrir seu nível real?</h3>
+        <p class="ii-cta-subtext">Em breve nosso consultor entra em contato pra agendar sua aula experimental. E aí você descobre seu nível com precisão e ainda conhece o método na prática.</p>
       </div>
       
       <button class="ii-btn ii-btn-secondary" onclick="iiRestart()">Refazer o teste</button>
@@ -487,12 +836,78 @@
     { context: "Inversão (nível avançado):", q: "___ had I arrived when the phone started ringing.", options: ["Soon", "Just", "Hardly", "Quick"], correct: 2 }
   ];
 
+  // Faixas: 0-4 A1 | 5-6 A2 | 7 B1 | 8 B2 | 9-10 C1
   const results = {
-    "0-2": { flag: "🇧🇷🇵🇹", country: "Brasil ou Portugal (por enquanto)", level: "Iniciante · A1", headline: "Imagine o mundo que vai abrir quando você falar inglês", desc: ["Seu nível atual ainda é de iniciante — e isso é totalmente normal! A maioria dos brasileiros começa exatamente daí.","Por enquanto, viajar pra fora exigiria muito da tradução do Google. Mas a boa notícia? O caminho do zero ao 'me virando bem' é mais curto do que você imagina com o método certo."] },
-    "3-4": { flag: "🇪🇸🇲🇽", country: "Espanha ou México", level: "Básico · A2", headline: "Você já se vira em destinos turísticos", desc: ["Você consegue pedir comida, pegar um táxi e fazer o básico em destinos turísticos onde o inglês não é tão exigido.","Mas se quiser conversar de verdade com alguém, pedir uma informação fora do roteiro ou trabalhar em inglês... ainda tem um caminho. E é exatamente esse caminho que a gente percorre com você."] },
-    "5-6": { flag: "🇺🇸", country: "Estados Unidos", level: "Intermediário · B1", headline: "Você já se comunica — mas dá pra ir muito além", desc: ["Você consegue viajar pros EUA, fazer amigos, pedir o que precisa e conversar sobre temas do dia a dia. Já é um salto enorme em relação à maioria.","Falta agora o pulo pra fluência: aquele momento em que você pensa em inglês, faz piada, debate. É o que separa quem 'fala inglês' de quem 'domina o inglês'."] },
-    "7-8": { flag: "🇬🇧", country: "Reino Unido", level: "Avançado · B2", headline: "Você está perto da fluência. Vamos selar o trato?", desc: ["Você encara um sotaque britânico, entende filmes sem legenda e consegue se virar em ambientes profissionais. Parabéns — a maioria nunca chega aqui.","O que falta agora é o refinamento: vocabulário sofisticado, idioms, fluidez em contextos exigentes. O nível que abre portas em entrevistas, palestras e networking internacional."] },
-    "9-10": { flag: "🌎", country: "Qualquer lugar do mundo", level: "Fluente · C1/C2", headline: "Você está no top 1% dos brasileiros", desc: ["Impressionante. Seu inglês te leva a qualquer lugar do mundo, em qualquer contexto — acadêmico, profissional, social.","Mas talvez seja hora de pensar em um próximo idioma? Espanhol, italiano, francês, alemão... Imagina o que mais você pode destravar."] }
+    "A1": {
+      emoji: "🌱",
+      name: "Aprendiz",
+      cefr: "equivalente A1",
+      intro: "Você está nos primeiros passos com o inglês. Hoje você:",
+      points: [
+        "Usa expressões simples do dia a dia",
+        "Consegue se apresentar",
+        "Responde perguntas básicas sobre você e o que tá ao seu redor"
+      ],
+      nextTitle: "Aprendiz hoje, Explorador em poucos meses",
+      nextText: "Quase ninguém começa fluente. Todo mundo começa do Aprendiz. A boa notícia? Sair do A1 pro A2 (Explorador) é o salto mais rápido da jornada. Com o método 3M, alunos que começaram exatamente onde você está hoje chegam no Explorador em menos tempo do que imaginam.",
+      cta: "Pronto pra dar o próximo passo?"
+    },
+    "A2": {
+      emoji: "🧭",
+      name: "Explorador",
+      cefr: "equivalente A2",
+      intro: "Você já foi além do básico. Hoje você:",
+      points: [
+        "Compreende frases e expressões do cotidiano",
+        "Interage de forma simples sobre temas familiares",
+        "Conversa sobre coisas do seu interesse pessoal"
+      ],
+      nextTitle: "Do Explorador pro Construtor",
+      nextText: "Você já sabe se virar no básico. O próximo nível (B1 · Construtor) é onde você começa a construir conversas de verdade. Falar do seu trabalho, sair em viagens com autonomia, entender filmes com ajuda de legenda. É aqui que a maioria sente o inglês 'destravando'.",
+      cta: "Bora destravar pro próximo nível?"
+    },
+    "B1": {
+      emoji: "🔨",
+      name: "Construtor",
+      cefr: "equivalente B1",
+      intro: "Você tem um domínio intermediário. Hoje você:",
+      points: [
+        "Compreende os pontos principais de textos em linguagem padrão",
+        "Se comunica de forma simples sobre temas do dia a dia",
+        "Já é alguém que 'fala inglês'"
+      ],
+      nextTitle: "Do Construtor pro Comunicador",
+      nextText: "Você já fala inglês. Mas existe uma diferença gigante entre 'falar' e 'se comunicar com fluência'. No B2 (Comunicador), você começa a expressar opiniões, argumentar, participar de conversas mais profundas. E é aí que portas profissionais começam a abrir.",
+      cta: "Pronto pra virar um Comunicador?"
+    },
+    "B2": {
+      emoji: "💬",
+      name: "Comunicador",
+      cefr: "equivalente B2",
+      intro: "Você está num nível que a maioria nunca alcança. Hoje você:",
+      points: [
+        "Compreende temas concretos e abstratos em textos complexos",
+        "Participa de conversas com fluência",
+        "Expressa opiniões e argumenta com clareza"
+      ],
+      nextTitle: "Do Comunicador pro Independente",
+      nextText: "Você está perto da fluência total. O salto pro C1 (Independente) é onde o inglês para de ser uma 'habilidade que você tem' e passa a ser parte de quem você é. Você pensa, faz piada, sonha em inglês. É o nível que muda relacionamentos profissionais e abre o mundo.",
+      cta: "Bora destravar a fluência total?"
+    },
+    "C1": {
+      emoji: "🏆",
+      name: "Independente",
+      cefr: "equivalente C1",
+      intro: "Você está no topo da nossa escala. Hoje você:",
+      points: [
+        "Tem domínio fluido e natural da língua",
+        "Compreende uma ampla gama de textos longos e complexos",
+        "Se expressa com precisão sobre temas exigentes"
+      ],
+      nextTitle: "E agora? Que tal um próximo idioma?",
+      nextText: "Você atingiu o topo da nossa escala Level Up! em inglês. Isso é coisa do top 1% dos brasileiros. Talvez seja hora de pensar num próximo idioma? Espanhol, italiano, francês, alemão. Imagina o que mais você pode destravar com a mesma metodologia que te trouxe até aqui.",
+      cta: "Que tal um próximo idioma?"
+    }
   };
 
   function getLeadFromURL() {
@@ -504,9 +919,9 @@
     };
   }
 
-  function sendResultToCRM(scoreNum, levelKey, country, level) {
+  function sendResultToCRM(scoreNum, levelKey, levelName, cefr) {
     if (!INTEGRATION_ENABLED || !INTEGRATION_URL) {
-      console.log('Quiz - Dados:', { ...getLeadFromURL(), score: scoreNum, levelKey, country, level });
+      console.log('Quiz - Dados:', { ...getLeadFromURL(), score: scoreNum, levelKey, levelName, cefr });
       return;
     }
     const lead = getLeadFromURL();
@@ -515,10 +930,48 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: lead.email, nome: lead.nome, telefone: lead.telefone,
-        score: scoreNum, level_key: levelKey, level: level, country: country,
+        score: scoreNum, level_key: levelKey,
+        level: levelName + ' (' + cefr + ')',
+        country: levelName,
         timestamp: new Date().toISOString()
       })
     }).catch(err => console.error('Erro:', err));
+  }
+
+  function loadCounter() {
+    if (!INTEGRATION_ENABLED || !INTEGRATION_URL) return;
+    const callbackName = 'iiCount_' + Date.now() + Math.floor(Math.random() * 1000);
+    window[callbackName] = function(data) {
+      if (data && typeof data.count === 'number' && data.count > 0) {
+        showCounter(data.count);
+      }
+      delete window[callbackName];
+      const scriptTag = document.getElementById(callbackName);
+      if (scriptTag) scriptTag.remove();
+    };
+    const script = document.createElement('script');
+    script.id = callbackName;
+    script.src = INTEGRATION_URL + '?action=count&callback=' + callbackName;
+    script.onerror = function() { delete window[callbackName]; script.remove(); };
+    document.body.appendChild(script);
+  }
+
+  function showCounter(finalCount) {
+    const badge = document.getElementById('ii-counter-badge');
+    const numEl = document.getElementById('ii-counter-number');
+    badge.classList.add('ii-counter-visible');
+    const duration = 1200;
+    const startTime = performance.now();
+    const startValue = Math.max(0, finalCount - 100);
+    function update(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(startValue + (finalCount - startValue) * eased);
+      numEl.textContent = current.toLocaleString('pt-BR');
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
   }
 
   let currentQuestion = 0;
@@ -581,23 +1034,34 @@
     document.getElementById('ii-progress-fill').style.width = '100%';
     
     let key;
-    if (score <= 2) key = "0-2";
-    else if (score <= 4) key = "3-4";
-    else if (score <= 6) key = "5-6";
-    else if (score <= 8) key = "7-8";
-    else key = "9-10";
+    if (score <= 4) key = "A1";
+    else if (score <= 6) key = "A2";
+    else if (score === 7) key = "B1";
+    else if (score === 8) key = "B2";
+    else key = "C1";
     
     const r = results[key];
-    document.getElementById('ii-result-flag').textContent = r.flag;
-    document.getElementById('ii-result-country').textContent = r.country;
-    document.getElementById('ii-result-level').textContent = r.level;
+    document.getElementById('ii-result-emoji').textContent = r.emoji;
+    document.getElementById('ii-result-name').textContent = r.name;
+    document.getElementById('ii-result-cefr').textContent = r.cefr;
+    document.getElementById('ii-result-intro').textContent = r.intro;
     document.getElementById('ii-result-score-num').textContent = score;
-    document.getElementById('ii-cta-headline').textContent = r.headline;
+    document.getElementById('ii-next-title').textContent = r.nextTitle;
+    document.getElementById('ii-next-text').textContent = r.nextText;
+    document.getElementById('ii-cta-headline').textContent = r.cta;
     
-    const descEl = document.getElementById('ii-result-description');
-    descEl.innerHTML = r.desc.map(p => '<p>' + p + '</p>').join('');
+    const pointsEl = document.getElementById('ii-result-points');
+    pointsEl.innerHTML = '';
+    r.points.forEach(p => {
+      const li = document.createElement('li');
+      li.textContent = p;
+      pointsEl.appendChild(li);
+    });
     
-    sendResultToCRM(score, key, r.country, r.level);
+    sendResultToCRM(score, key, r.name, r.cefr);
+    
+    document.getElementById('ii-method-box').classList.remove('ii-visible');
+    document.getElementById('ii-curiosity-btn').classList.remove('ii-open');
   }
 
   window.iiRestart = function() {
@@ -608,9 +1072,17 @@
     document.getElementById('ii-screen-intro').classList.add('ii-active');
   };
 
+  window.iiToggleMethod = function() {
+    const box = document.getElementById('ii-method-box');
+    const btn = document.getElementById('ii-curiosity-btn');
+    box.classList.toggle('ii-visible');
+    btn.classList.toggle('ii-open');
+  };
+
   window.iiShareResult = function() {
-    const country = document.getElementById('ii-result-country').textContent;
-    const text = 'Acabei de fazer o quiz da Idioma Independente e descobri que com meu inglês atual eu conseguiria viajar para: ' + country + ' 🌎';
+    const name = document.getElementById('ii-result-name').textContent;
+    const cefr = document.getElementById('ii-result-cefr').textContent;
+    const text = 'Acabei de fazer o quiz Level Up! da Idioma Independente e meu nível é: ' + name + ' (' + cefr + ') 🚀';
     if (navigator.share) {
       navigator.share({ text: text, url: window.location.href });
     } else {
@@ -618,6 +1090,8 @@
       alert('Resultado copiado! Cole onde quiser 😉');
     }
   };
+
+  loadCounter();
 })();
 </script>
 
