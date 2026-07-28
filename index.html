@@ -904,15 +904,24 @@ function fallbackCopy(txt){const ta=document.createElement('textarea');ta.value=
 function showCopied(){const el=document.getElementById('copied-msg');el.style.opacity='1';setTimeout(()=>el.style.opacity='0',2500);}
 
 function switchTab(tab, btn) {
+  // Esconde tudo
   document.querySelectorAll('.tab-content').forEach(t => {
     t.classList.remove('active');
     t.style.display = 'none';
   });
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+  // Mostra aba selecionada
   const el = document.getElementById('tab-' + tab);
   el.style.display = 'block';
   el.classList.add('active');
   btn.classList.add('active');
+
+  // Lazy load iframes — só carrega quando a aba é aberta pela primeira vez
+  const iframe = el.querySelector('iframe[data-src]');
+  if (iframe && !iframe.src) {
+    iframe.src = iframe.dataset.src;
+  }
 }
 
 let adminVisible=false;
@@ -973,8 +982,13 @@ function saveAdmin(){
 }
 
 // Init — hide all tab contents except escolhedor
-document.querySelectorAll('.tab-content').forEach(t=>t.style.display='none');
-document.getElementById('tab-escolhedor').style.display='';
+document.querySelectorAll('.tab-content').forEach(t => {
+  t.style.display = 'none';
+  t.classList.remove('active');
+});
+const escolhedor = document.getElementById('tab-escolhedor');
+escolhedor.style.display = '';
+escolhedor.classList.add('active');
 buildPromoFields();buildAdmin();render();
 </script>
 </body>
