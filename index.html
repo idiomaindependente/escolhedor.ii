@@ -17,6 +17,9 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #eef2f8; min-heig
 .tab-btn.active { color: #fff; border-bottom-color: #cc2222; }
 
 .tab-content { display: none; }
+.tab-content .iframe-wrap { display: block; }
+.tab-content:not(.active) .iframe-wrap iframe { display: none; }
+.tab-content:not(.active) .consulta-frame { display: none; }
 .tab-content.active { display: block; }
 
 /* ESCOLHEDOR */
@@ -900,11 +903,15 @@ function copyMsg(){
 function fallbackCopy(txt){const ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;top:0;left:0;opacity:0;';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');showCopied();}catch(e){alert('Não foi possível copiar.');}document.body.removeChild(ta);}
 function showCopied(){const el=document.getElementById('copied-msg');el.style.opacity='1';setTimeout(()=>el.style.opacity='0',2500);}
 
-function switchTab(tab,btn){
-  document.querySelectorAll('.tab-content').forEach(t=>{t.classList.remove('active');t.style.display='none';});
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  const el=document.getElementById('tab-'+tab);
-  el.style.display='block';el.classList.add('active');
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => {
+    t.classList.remove('active');
+    t.style.display = 'none';
+  });
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const el = document.getElementById('tab-' + tab);
+  el.style.display = 'block';
+  el.classList.add('active');
   btn.classList.add('active');
 }
 
